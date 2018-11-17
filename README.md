@@ -1,7 +1,7 @@
 # Thumbot
 ![thumb](http://i.giphy.com/I83tvEbSgRy8M.gif)
 
-**Thumbot** is a :thumbsup: :thumbsdown: counter keyboard for Telegram bots and channels.
+**Thumbot** is a 👍 👎 counter keyboard for Telegram bots and channels.
 
 ![photo31331718161082944](https://cloud.githubusercontent.com/assets/431892/21070814/1a44c100-be75-11e6-9995-06a82bce7e41.jpg)
 
@@ -16,11 +16,7 @@
 
 - Your're going to need to run an instance of [MongoDB](https://mongodb.com). For tests porpuse (or even production, but with some concerns) you can run the command below to get  a [Docker](https://docker.com/) container running:
 
-  `$ docker run -d -p 27017:27017 mongo`
-
-- To install Thumbot is pretty easy:
-
-  `$ pip install thumbot`
+  `$ docker-compose build && docker-compose up`
 
 - Now, you're ready to include the Thumbot keyboard in your bot or channel!
 

@@ -1,8 +1,9 @@
+import os
 import telebot
 from thumbot import Thumbot
 
 
-TOKEN = 'YOUR BOT TOKEN'
+TOKEN = os.environ['bot_token']
 bot = telebot.TeleBot(TOKEN)
 
 
@@ -22,6 +23,7 @@ def thumb_up(callback):
             chat_id=callback.message.chat.id,
             message_id=callback.message.message_id,
             reply_markup=thumbot.keyboard())
+        bot.answer_callback_query(callback.id, text='You voted \'👍\'')
 
 
 @bot.callback_query_handler(lambda q: q.data == 'thumb_down')
@@ -34,6 +36,7 @@ def thumb_down(callback):
             chat_id=callback.message.chat.id,
             message_id=callback.message.message_id,
             reply_markup=thumbot.keyboard())
+        bot.answer_callback_query(callback.id, text='You voted \'👎\'')
 
 
 if __name__ == '__main__':

@@ -1,0 +1,25 @@
+version: "3.1"
+
+services:
+  
+  thumbot:
+    build: ./docker/thumbot
+    container_name: thumbot
+    restart: always
+    environment:
+        ADMIN_USER: ${MONGODB_ADMINUSERNAME}
+        ADMIN_PASS: ${MONGODB_ADMINPASSWORD}
+        bot_token: ${TELEGRAM_BOT_TOKEN}
+  
+  mongo:
+    image: vepo/mongo
+    container_name: mongo
+    restart: always
+    environment:
+        AUTH: "yes"
+        ADMIN_USER: ${MONGODB_ADMINUSERNAME}
+        ADMIN_PASS: ${MONGODB_ADMINPASSWORD}
+    volumes:
+        - ./docker/mongo/data:/data
+    ports:
+      - 27017:27017

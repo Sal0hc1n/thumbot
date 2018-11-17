@@ -1,22 +1,23 @@
+import os
 from telebot.types import InlineKeyboardMarkup, InlineKeyboardButton
 from pymongo import MongoClient
 
 
 class Thumbot:
 
-    THUMBS_UP_EMOJI = '\U0001F44D'
-    THUMBS_DOWN_EMOJI = '\U0001F44E'
-
     def __init__(self, chat=None, message=None):
         if not chat or not message:
            return
 
-        client = MongoClient()
+        client = MongoClient('mongo', 27017, username=os.environ['ADMIN_USER'],
+                                password=os.environ['ADMIN_PASS'], authSource='admin')
         self.db = client.thumbot
 
         self.chat = chat
         self.message = message
         self.check_ups_downs()
+        self.ups = None
+        self.downs = None
 
     def check_ups_downs(self):
         # I'm sure that there is a better way to do this function
@@ -49,8 +50,8 @@ class Thumbot:
     @classmethod
     def empty_keyboard(cls):
         t = cls()
-        up_button = t._create_button(cls.THUMBS_UP_EMOJI, 'thumb_up')
-        down_button = t._create_button(cls.THUMBS_DOWN_EMOJI, 'thumb_down')
+        up_button = t._create_button('👍', 'thumb_up')
+        down_button = t._create_button('👎', 'thumb_down')
         return t._create_keyboard(up_button, down_button)
 
     def label(self, icon, counter=None):
@@ -60,8 +61,8 @@ class Thumbot:
         return icon
 
     def keyboard(self):
-        up_label = self.label(self.THUMBS_UP_EMOJI, len(self.ups))
-        down_label = self.label(self.THUMBS_DOWN_EMOJI, len(self.downs))
+        up_label = self.label('👍', len(self.ups))
+        down_label = self.label('👎', len(self.downs))
 
         up_button = self._create_button(up_label, 'thumb_up')
         down_button = self._create_button(down_label, 'thumb_down')
@@ -103,3 +104,4 @@ class Thumbot:
         self.update()
 
         return True
+

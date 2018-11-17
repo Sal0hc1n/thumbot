@@ -1,0 +1,12 @@
+# python
+*.pyc
+
+# mongo data
+docker/mongo
+*.wt
+*.turtle
+
+# others
+.vscode
+.DS_Store
+.env
